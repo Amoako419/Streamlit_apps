@@ -11,21 +11,31 @@ st.title("Time series analysis ")
 df = pd.read_csv('data.csv')
 st.dataframe(df)
 
-fig = make_subplots(rows=3,cols=1)
 
-fig.add_trace(go.Scatter(
-    x = df['Exam_Score']
-    
-))
-st.write('Examination score')
-st.line_chart(df['Exam_Score'][:100])
-st.write('Hours of study')
-st.line_chart(df['Hours_Studied'][:100])
+# st.write('Examination score')
+# st.line_chart(df['Exam_Score'][:100])
+# st.write('Hours of study')
+# st.line_chart(df['Hours_Studied'][:100])
 
-st.write('Gender')
+# st.write('Gender')
 male =  df['Gender'].value_counts()[0]
 female =  df['Gender'].value_counts()[1]
 # plt.pie(male,female)
 # plt.show()
 
 st.caption(f"There are {male} boys and {female} girls")
+
+fig = make_subplots(rows=3,cols=3)
+
+fig.add_trace(go.Bar(
+    #  x = df['Attendance'][:100],
+    y = df['Hours_Studied'][:100]
+    ),row=1,col=1 )
+
+fig.add_trace(
+    go.Scatter(
+        x = df['Attendance'][:100]
+    ),row=2,col=1
+)
+
+st.plotly_chart(fig)
