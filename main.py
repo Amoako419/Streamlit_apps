@@ -1,4 +1,5 @@
 import streamlit as st
+import numpy as np
 from sklearn import datasets
 st.title("Streamlit example")
 
@@ -19,3 +20,10 @@ def get_dataset(dataset_name):
         data = datasets.load_breast_cancer()
     else:
         data = datasets.load_wine()
+        
+    X = data.data
+    y = data.target
+    return X,y
+X,y = get_dataset(dataset_name)
+st.write("Shape of dataset",X.shape)
+st.write("number of classes",len(np.unique(y)))
