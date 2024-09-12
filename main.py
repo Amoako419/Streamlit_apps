@@ -1,18 +1,21 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
- 
-st.write("""
-# My first app
-Hello *world!*
-""")
- 
-# df = pd.read_csv("Onli")
+from sklearn import datasets
+st.title("Streamlit example")
 
-rand = np.random.randint(11)
-df = pd.DataFrame({
-    "a":[1,2,3,4,5,6,7,8,9,10,11],
-    "b":[12,13,14,15,16,17,18,19,20,21,22],
-    "random":[23,45,11,34,66,76,12,45,22,10,55],
-})
-st.line_chart(df)
+st.write("""
+         # Explore the dataset
+         which one is the best?
+         """)
+
+dataset_name = st.sidebar.selectbox("Select Dataset",("Iris","Breast Cancer","Wine dataset"))
+
+st.write(dataset_name)
+classifier_name = st.sidebar.selectbox("Select Classifier",("KNN","SVM","Random Forest"))
+
+def get_dataset(dataset_name):
+    if dataset_name == "Iris":
+        data = datasets.load_iris()
+    elif dataset_name == "Breast Cancer":
+        data = datasets.load_breast_cancer()
+    else:
+        data = datasets.load_wine()
